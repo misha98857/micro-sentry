@@ -180,6 +180,12 @@ describe('BrowserMicroSentryClient', () => {
     afterEach(() => {
       client.clearState();
     });
+
+    it('Should override release version', () => {
+      client.setRelease('1.1.1');
+
+      expect(client.release).toEqual('1.1.1');
+    });
   });
 
   describe('Breadcrumbs', () => {

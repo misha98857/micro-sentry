@@ -19,6 +19,8 @@ function getWindow(): Window {
 }
 
 export class BrowserMicroSentryClient extends MicroSentryClient {
+  release?: string;
+
   private readonly breadcrumbsKeyName = 'breadcrumbs';
   private destroyed = false;
   private readonly plugins: MicroSentryPlugin[];
@@ -34,7 +36,6 @@ export class BrowserMicroSentryClient extends MicroSentryClient {
   private readonly ignoreErrors: NonNullable<
     BrowserSentryClientOptions['ignoreErrors']
   >;
-  private readonly release?: string;
   private readonly maxBreadcrumbs: number;
 
   constructor(
@@ -100,6 +101,11 @@ export class BrowserMicroSentryClient extends MicroSentryClient {
   setUser(user: User | null): this {
     this.setKeyState('user', user ? { ...user } : undefined);
 
+    return this;
+  }
+
+  setRelease(release: string): this {
+    this.release = release;
     return this;
   }
 
